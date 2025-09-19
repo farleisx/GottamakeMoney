@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - AI Website Builder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Dashboard</h1>
+  <textarea id="prompt" placeholder="Describe your website..."></textarea>
+  <button id="generate-btn">Generate Website</button>
+  <pre id="result"></pre>
+</div>
+
+<script>
+const generateBtn = document.getElementById('generate-btn');
+const promptInput = document.getElementById('prompt');
+const resultOutput = document.getElementById('result');
+
+generateBtn.addEventListener('click', async () => {
+  const prompt = promptInput.value;
+  const res = await fetch('/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt })
+  });
+  const data = await res.json();
+  resultOutput.textContent = data.result;
+});
+</script>
+</body>
+</html>
